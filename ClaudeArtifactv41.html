@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Noah's Harvard Journey</title>
+None<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,400;1,600&family=Outfit:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#0d1117;--gold:#d4a847;--gold2:#f0cc7a;--sage:#4a7c59;--sage2:#7ab38a;--sage3:#eef5f0;--coral:#c8614a;--coral2:#e8907a;--sky:#3d7fb5;--sky2:#7ab0d4;--lavender:#7c6fa0;--surface:#fff;--surface2:#f8f6f2;--border:#e8e4de;--muted:#8a8580}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Outfit',sans-serif;background:var(--ink);color:#fff;min-height:100vh;overflow-x:hidden}
+.stars{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden}
+.star{position:absolute;background:#fff;border-radius:50%;animation:twinkle var(--d) ease-in-out infinite var(--delay)}
+@keyframes twinkle{0%,100%{opacity:var(--min);transform:scale(1)}50%{opacity:var(--max);transform:scale(1.4)}}
+.hero{position:relative;z-index:1;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:60px 24px 40px;background:radial-gradient(ellipse 80% 60% at 50% 0%,rgba(212,168,71,.12) 0%,transparent 70%),radial-gradient(ellipse 60% 40% at 20% 80%,rgba(74,124,89,.08) 0%,transparent 60%)}
+.noah-emblem{width:110px;height:110px;border-radius:50%;background:conic-gradient(from 0deg,var(--gold),var(--sage2),var(--sky2),var(--coral2),var(--gold));display:flex;align-items:center;justify-content:center;position:relative;margin-bottom:28px;animation:rotateSlow 20s linear infinite;box-shadow:0 0 60px rgba(212,168,71,.25)}
+.noah-emblem::before{content:'';position:absolute;inset:3px;background:var(--ink);border-radius:50%}
+.noah-emblem .ei{position:relative;z-index:1;font-size:44px;line-height:1}
+@keyframes rotateSlow{to{transform:rotate(360deg)}}
+.hero-eyebrow{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:3px;color:var(--gold);text-transform:uppercase;margin-bottom:12px;opacity:0;animation:slideUp .8s ease .3s forwards}
+.hero h1{font-family:'Cormorant Garamond',serif;font-size:clamp(42px,8vw,72px);font-weight:300;line-height:1.1;margin-bottom:8px;opacity:0;animation:slideUp .8s ease .5s forwards}
+.hero h1 em{font-style:italic;color:var(--gold2)}
+.hero-sub{font-size:15px;color:rgba(255,255,255,.5);font-weight:300;margin-bottom:32px;opacity:0;animation:slideUp .8s ease .7s forwards;max-width:480px;line-height:1.6}
+@keyframes slideUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+.age-ticker{display:flex;gap:12px;flex-wrap:wrap;justify-content:center;margin-bottom:48px;opacity:0;animation:slideUp .8s ease .9s forwards}
+.ticker-pill{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12);border-radius:100px;padding:8px 18px;display:flex;align-items:center;gap:8px;font-size:13px;color:rgba(255,255,255,.7);backdrop-filter:blur(10px)}
+.ticker-pill .live-dot{width:6px;height:6px;background:var(--sage2);border-radius:50%;animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+.ticker-pill strong{color:#fff}
+.pillars{position:relative;z-index:1;max-width:860px;margin:0 auto;padding:0 24px 80px}
+.pillars-title{font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:300;text-align:center;margin-bottom:6px;color:rgba(255,255,255,.9)}
+.pillars-sub{text-align:center;font-size:13px;color:rgba(255,255,255,.4);margin-bottom:32px}
+.pillars-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+.pillar-card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:20px;padding:24px;transition:transform .3s,background .3s}
+.pillar-card:hover{transform:translateY(-4px);background:rgba(255,255,255,.07)}
+.pillar-icon{font-size:28px;margin-bottom:10px}
+.pillar-name{font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:600;margin-bottom:6px}
+.pillar-card:nth-child(1) .pillar-name{color:var(--gold2)}
+.pillar-card:nth-child(2) .pillar-name{color:var(--sage2)}
+.pillar-card:nth-child(3) .pillar-name{color:var(--coral2)}
+.pillar-card:nth-child(4) .pillar-name{color:var(--sky2)}
+.pillar-desc{font-size:12px;color:rgba(255,255,255,.45);line-height:1.6}
+.pillar-milestone{margin-top:14px;background:rgba(255,255,255,.04);border-radius:10px;padding:10px 12px;font-size:12px;color:rgba(255,255,255,.6);line-height:1.6;border-left:2px solid rgba(255,255,255,.15)}
+.schedule-section{background:var(--surface2);color:var(--ink);border-radius:32px 32px 0 0;position:relative;z-index:2;padding:60px 24px 80px;min-height:60vh}
+.section-eyebrow{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:3px;color:var(--muted);text-transform:uppercase;text-align:center;margin-bottom:8px}
+.section-heading{font-family:'Cormorant Garamond',serif;font-size:34px;font-weight:400;text-align:center;color:var(--ink);margin-bottom:4px}
+.section-heading em{font-style:italic;color:var(--gold)}
+.section-desc{text-align:center;font-size:14px;color:var(--muted);max-width:500px;margin:0 auto 40px;line-height:1.7}
+.day-picker{max-width:860px;margin:0 auto 24px;display:grid;grid-template-columns:repeat(7,1fr);gap:8px}
+.dp-btn{display:flex;flex-direction:column;align-items:center;gap:4px;padding:14px 8px;border-radius:16px;border:1.5px solid var(--border);background:#fff;cursor:pointer;transition:all .25s;position:relative;overflow:hidden}
+.dp-btn:hover{border-color:var(--ink);transform:translateY(-2px);box-shadow:0 6px 20px rgba(0,0,0,.08)}
+.dp-btn.active{background:var(--ink);border-color:var(--ink);color:#fff}
+.dp-btn.generated{border-color:var(--sage);background:var(--sage3)}
+.dp-btn.generated.active{background:var(--sage);border-color:var(--sage);color:#fff}
+.dp-btn.loading-day{border-color:var(--gold);background:#fffbf0}
+.dp-day{font-size:12px;font-weight:600;font-family:'Outfit',sans-serif;color:inherit}
+.dp-date{font-size:10px;color:var(--muted);font-family:'JetBrains Mono',monospace}
+.dp-btn.active .dp-date,.dp-btn.generated.active .dp-date{color:rgba(255,255,255,.6)}
+.dp-check{position:absolute;top:6px;right:6px;width:16px;height:16px;background:var(--sage);border-radius:50%;display:none;align-items:center;justify-content:center;font-size:9px;color:#fff}
+.dp-btn.generated .dp-check{display:flex}
+.dp-btn.generated.active .dp-check{background:rgba(255,255,255,.3)}
+.dp-spinner{position:absolute;top:6px;right:6px;width:14px;height:14px;border:2px solid rgba(212,168,71,.3);border-top-color:var(--gold);border-radius:50%;animation:spin .7s linear infinite;display:none}
+.dp-btn.loading-day .dp-spinner{display:block}
+@keyframes spin{to{transform:rotate(360deg)}}
+.gen-controls{max-width:860px;margin:0 auto 32px;display:flex;gap:12px;flex-wrap:wrap;align-items:center;justify-content:space-between}
+.gen-all-btn{display:inline-flex;align-items:center;gap:10px;background:var(--ink);color:#fff;border:none;border-radius:100px;padding:14px 28px;font-size:14px;font-family:'Outfit',sans-serif;font-weight:500;cursor:pointer;transition:all .3s;position:relative;overflow:hidden}
+.gen-all-btn::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,var(--gold),var(--sage));opacity:0;transition:opacity .3s}
+.gen-all-btn:hover::before{opacity:1}
+.gen-all-btn:disabled{opacity:.5;cursor:not-allowed}
+.gen-all-btn span,.gen-all-btn .spin2{position:relative;z-index:1}
+.gen-all-btn .spin2{width:16px;height:16px;border:2px solid rgba(255,255,255,.3);border-top-color:#fff;border-radius:50%;animation:spin .7s linear infinite;display:none}
+.gen-all-btn.loading .spin2{display:block}
+.gen-sources{font-size:11px;color:var(--muted);font-family:'JetBrains Mono',monospace}
+#outputWrap{max-width:860px;margin:0 auto;display:none}
+#outputWrap.show{display:block;animation:fadeUp .5s ease}
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+.export-bar{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:20px}
+.exp-btn{display:inline-flex;align-items:center;gap:8px;padding:10px 20px;border-radius:100px;border:1.5px solid var(--border);background:#fff;font-size:13px;font-family:'Outfit',sans-serif;font-weight:500;cursor:pointer;color:var(--ink);transition:all .2s}
+.exp-btn:hover{transform:translateY(-2px);box-shadow:0 4px 16px rgba(0,0,0,.1)}
+.exp-btn.pdf:hover{background:var(--ink);color:#fff;border-color:var(--ink)}
+.exp-btn.mail:hover{background:var(--sage);color:#fff;border-color:var(--sage)}
+.exp-btn:disabled{opacity:.4;cursor:not-allowed;transform:none}
+.day-header{display:flex;align-items:center;gap:16px;margin-bottom:24px;padding:18px 22px;background:#fff;border-radius:16px;border:1px solid var(--border)}
+.day-focus-name{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:600;color:var(--ink)}
+.day-focus-sub{font-size:12px;color:var(--muted)}
+.timeline{display:flex;flex-direction:column}
+.tl-row{display:grid;grid-template-columns:64px 24px 1fr;gap:0 12px}
+.tl-time{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--muted);text-align:right;padding-top:22px;line-height:1}
+.tl-spine{display:flex;flex-direction:column;align-items:center}
+.tl-dot{width:12px;height:12px;border-radius:50%;flex-shrink:0;margin-top:20px;border:2px solid #fff;box-shadow:0 0 0 1px var(--border)}
+.tl-line{width:2px;flex:1;min-height:16px;background:var(--border)}
+.tl-card{background:#fff;border-radius:16px;padding:18px 20px;margin-bottom:10px;border:1px solid var(--border);transition:box-shadow .2s}
+.tl-card:hover{box-shadow:0 4px 20px rgba(0,0,0,.07)}
+.tl-cat{font-size:10px;font-family:'JetBrains Mono',monospace;letter-spacing:1px;text-transform:uppercase;font-weight:500;margin-bottom:4px;display:flex;align-items:center;gap:6px}
+.tl-title{font-family:'Cormorant Garamond',serif;font-size:17px;font-weight:600;color:var(--ink);margin-bottom:6px}
+.tl-desc{font-size:13px;color:#555;line-height:1.65}
+.tl-extra{margin-top:12px;border-radius:10px;padding:12px 14px;font-size:12px;line-height:1.65}
+.tl-extra strong{font-size:10px;letter-spacing:1px;text-transform:uppercase;display:block;margin-bottom:5px;font-family:'JetBrains Mono',monospace}
+.tl-why{background:#f0f4ff;border-left:3px solid var(--sky)}.tl-why strong{color:var(--sky)}
+.tl-recipe{background:#fff5f0;border-left:3px solid var(--coral)}.tl-recipe strong{color:var(--coral)}
+.tl-setup{background:var(--sage3);border-left:3px solid var(--sage)}.tl-setup strong{color:var(--sage)}
+.cat-brain .tl-dot{background:var(--gold)}.cat-brain .tl-cat{color:#b8862a}
+.cat-motor .tl-dot{background:var(--sage)}.cat-motor .tl-cat{color:var(--sage)}
+.cat-feed .tl-dot{background:var(--coral)}.cat-feed .tl-cat{color:var(--coral)}
+.cat-sleep .tl-dot{background:var(--sky)}.cat-sleep .tl-cat{color:var(--sky)}
+.cat-social .tl-dot{background:var(--lavender)}.cat-social .tl-cat{color:var(--lavender)}
+.cat-play .tl-dot{background:#e88c2a}.cat-play .tl-cat{color:#c47320}
+.skeleton-block{background:#fff;border-radius:16px;padding:18px 20px;margin-bottom:10px;border:1px solid var(--border)}
+.skel{background:linear-gradient(90deg,#f0f0f0 25%,#e0e0e0 50%,#f0f0f0 75%);background-size:200% 100%;animation:shimmer 1.4s infinite;border-radius:6px}
+@keyframes shimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
+.sources-row{display:flex;gap:8px;flex-wrap:wrap;padding-top:24px;margin-top:24px;border-top:1px solid var(--border);align-items:center}
+.src-chip{font-family:'JetBrains Mono',monospace;font-size:10px;padding:4px 10px;border-radius:100px;background:var(--surface2);border:1px solid var(--border);color:var(--muted)}
+.delivery-section{background:#fff;border:1px solid var(--border);border-radius:24px;padding:36px;margin-top:40px;max-width:860px;margin-left:auto;margin-right:auto}
+.delivery-section h3{font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:400;color:var(--ink);margin-bottom:6px}
+.delivery-section>p{font-size:14px;color:var(--muted);margin-bottom:24px}
+.field-group{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:12px}
+.field-group input{flex:1;min-width:200px;border:1.5px solid var(--border);border-radius:12px;padding:12px 16px;font-size:14px;font-family:'Outfit',sans-serif;color:var(--ink);background:var(--surface2);outline:none;transition:border-color .2s}
+.field-group input:focus{border-color:var(--sage);background:#fff}
+.sub-btn{background:var(--sage);color:#fff;border:none;border-radius:12px;padding:12px 28px;font-size:14px;font-family:'Outfit',sans-serif;font-weight:600;cursor:pointer;transition:background .2s;width:100%;margin-top:4px}
+.sub-btn:hover{background:var(--sage2)}
+.sub-note{font-size:11px;color:var(--muted);margin-top:10px;line-height:1.5;font-family:'JetBrains Mono',monospace}
+.confirm-toast{display:none;margin-top:16px;background:#f0faf2;border:1.5px solid var(--sage2);border-radius:14px;padding:16px 20px}
+.confirm-toast.show{display:block;animation:fadeUp .4s ease}
+.confirm-toast .ct-title{font-family:'Cormorant Garamond',serif;font-size:18px;color:var(--sage);font-weight:600;margin-bottom:4px}
+.confirm-toast .ct-msg{font-size:13px;color:#444;line-height:1.6}
+#toastBar{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:#fff;border-radius:14px;padding:14px 22px;font-size:13px;color:#333;font-family:'Outfit',sans-serif;box-shadow:0 8px 32px rgba(0,0,0,.15);z-index:9999;max-width:420px;text-align:center;display:none;border:1.5px solid var(--sage)}
+@media print{
+  body>*:not(#pdfOverlay){display:none!important}
+  #pdfOverlay{position:static!important;background:#fff!important}
+  #pdfOverlay>div:first-child{display:none!important}
+  .print-day{page-break-before:always}
+  .print-day:first-child{page-break-before:avoid}
+}
+@media(max-width:600px){.pillars-grid{grid-template-columns:1fr}.day-picker{grid-template-columns:repeat(4,1fr)}.tl-row{grid-template-columns:48px 20px 1fr}.delivery-section{padding:24px 20px}}
+</style>
+</head>
+<body>
+<div class="stars" id="stars"></div>
+
+<section class="hero">
+  <div class="noah-emblem"><div class="ei" id="heroEmoji">👶</div></div>
+  <div class="hero-eyebrow">Born December 23, 2024 · Adapts Every Week Automatically</div>
+  <h1>Noah's<br><em id="heroTitle">Growing Journey</em></h1>
+  <p class="hero-sub">Science-backed schedules from WHO, AAP, Harvard Medical & NIH — recalculated every week based on Noah's exact age and developmental stage.</p>
+  <div class="age-ticker">
+    <div class="ticker-pill"><span class="live-dot"></span><strong id="ageDisplay">—</strong>&nbsp;<span id="ageUnit">months</span> old</div>
+    <div class="ticker-pill">🧠 <strong id="ageDays">—</strong>&nbsp;days of brain growth</div>
+    <div class="ticker-pill">⭐ <span id="devStage">—</span></div>
+  </div>
+</section>
+
+<section class="pillars">
+  <div class="pillars-title" id="pillarsTitle">Noah's 4 Development Pillars</div>
+  <div class="pillars-sub">Every schedule balances all four areas based on current pediatric science</div>
+  <div class="pillars-grid">
+    <div class="pillar-card"><div class="pillar-icon" id="p1icon">🧠</div><div class="pillar-name" id="p1name">Cognitive</div><div class="pillar-desc" id="p1desc"></div><div class="pillar-milestone" id="p1ms"></div></div>
+    <div class="pillar-card"><div class="pillar-icon" id="p2icon">💪</div><div class="pillar-name" id="p2name">Motor</div><div class="pillar-desc" id="p2desc"></div><div class="pillar-milestone" id="p2ms"></div></div>
+    <div class="pillar-card"><div class="pillar-icon" id="p3icon">❤️</div><div class="pillar-name" id="p3name">Social</div><div class="pillar-desc" id="p3desc"></div><div class="pillar-milestone" id="p3ms"></div></div>
+    <div class="pillar-card"><div class="pillar-icon" id="p4icon">🥗</div><div class="pillar-name" id="p4name">Nutrition</div><div class="pillar-desc" id="p4desc"></div><div class="pillar-milestone" id="p4ms"></div></div>
+  </div>
+</section>
+
+<section class="schedule-section">
+  <div class="section-eyebrow" id="schedEyebrow">Weekly Schedule · Select a Day</div>
+  <h2 class="section-heading">This Week's Schedule<br>for <em>Noah</em></h2>
+  <p class="section-desc">Tap any day to generate it individually. Each day is crafted with full detail.</p>
+
+  <div class="day-picker" id="dayPicker"></div>
+
+  <div class="gen-controls">
+    <button class="gen-all-btn" id="genAllBtn" onclick="generateAll()">
+      <div class="spin2"></div><span>✨ Generate Full Week</span>
+    </button>
+    <div class="gen-sources">WHO · AAP · Harvard Medical · NIH · CDC · Zero to Three</div>
+  </div>
+
+  <div id="outputWrap">
+    <div class="export-bar">
+      <button class="exp-btn pdf" id="pdfBtn" onclick="downloadPDF()" disabled>📄 Download PDF</button>
+      <button class="exp-btn mail" id="mailBtn" onclick="sendEmail()" disabled>📧 Email Schedule</button>
+    </div>
+    <div id="dayContent"></div>
+    <div class="sources-row">
+      <span style="font-size:11px;color:var(--muted);font-family:'JetBrains Mono',monospace">Sources:</span>
+      <span class="src-chip">WHO</span><span class="src-chip">AAP</span><span class="src-chip">Harvard Medical</span><span class="src-chip">NIH</span><span class="src-chip">CDC Milestones</span><span class="src-chip">Zero to Three</span>
+    </div>
+  </div>
+
+  <div id="printArea"></div>
+
+  <div class="delivery-section">
+    <h3>📬 Get Noah's Schedule Every Monday</h3>
+    <p>Enter your email — Noah's full weekly schedule sent automatically every Monday, updated for his current age.</p>
+    <div class="field-group">
+      <input type="email" id="subEmail" placeholder="your@email.com">
+    </div>
+    <button class="sub-btn" onclick="subscribe()">📧 Subscribe — Every Monday</button>
+    <div class="sub-note">✓ Auto-updates as Noah grows · ✓ Full schedule every week · ✓ Unsubscribe anytime</div>
+    <div class="confirm-toast" id="ct-email">
+      <div class="ct-title">✅ Subscribed!</div>
+      <div class="ct-msg" id="ct-email-msg"></div>
+    </div>
+  </div>
+</section>
+
+<div id="toastBar"></div>
+
+<script>
+// ── EMAILJS ──
+const VERCEL_API = 'https://noah-email-api-qbp8.vercel.app/api/send';
+
+// ── STARS ──
+(function(){
+  const c=document.getElementById('stars');
+  for(let i=0;i<120;i++){
+    const s=document.createElement('div');s.className='star';
+    const sz=Math.random()*2+.5,dl=Math.random()*6,dur=3+Math.random()*4,mn=Math.random()*.1,mx=mn+Math.random()*.6+.2;
+    s.style.cssText=`width:${sz}px;height:${sz}px;left:${Math.random()*100}%;top:${Math.random()*100}%;--d:${dur}s;--delay:-${dl}s;--min:${mn};--max:${mx}`;
+    c.appendChild(s);
+  }
+})();
+
+// ── AGE ──
+const BIRTH=new Date('2024-12-23');
+function getExactAge(){
+  const now=new Date(),totalDays=Math.floor((now-BIRTH)/86400000),totalWeeks=Math.floor(totalDays/7);
+  let years=now.getFullYear()-BIRTH.getFullYear(),months=now.getMonth()-BIRTH.getMonth(),days=now.getDate()-BIRTH.getDate();
+  if(days<0){months--;days+=new Date(now.getFullYear(),now.getMonth(),0).getDate();}
+  if(months<0){years--;months+=12;}
+  return{years,months,days,totalDays,totalWeeks,totalMonths:years*12+months};
+}
+
+// ── STAGES ──
+function getStage(age){
+  const m=age.totalMonths,w=age.totalWeeks;
+  if(w<4)return{id:'newborn',label:'Newborn',emoji:'👶',heroTitle:'Newborn Journey',ageDisplay:w,ageUnit:'weeks',
+    pillarNames:['🧠 Brain & Senses','💪 Reflex & Motor','❤️ Attachment','🍼 Feeding'],
+    pillarDescs:['Rapid synapse formation, high-contrast vision, sound localisation','Moro, rooting, sucking reflexes. Tummy time 2-3 min. Head lifting begins.','Recognises parents voice and scent. First eye contact. Calmed by holding.','Breast milk or formula 8-12x/day. Feed on demand. Count wet nappies.'],
+    milestones:['Brain forming 1M neural connections/sec. Sees best at 20-25cm. Prefers black & white and faces.','Reflex-dominant. Tummy time 2-3 min 2-3x daily. Hands fisted.','Recognises mother voice from birth. First eye contact attempts.','8-12 feeds/day every 2-3hrs. 60-90ml/feed if bottle.'],
+    prompt:`Noah is a NEWBORN (${w} weeks). Wake windows 45-60min. 3-5 short naps. Breast milk/formula ONLY. Activities: tummy time 2-3min, high-contrast visuals, skin-to-skin, gentle talking.`};
+  if(w<12)return{id:'young-infant',label:'Young Infant',emoji:'👶',heroTitle:'Early Development',ageDisplay:w,ageUnit:'weeks',
+    pillarNames:['🧠 Brain & Vision','💪 Motor Growth','❤️ Social Smiles','🍼 Feeding'],
+    pillarDescs:['Visual cortex developing. Social smile emerging. Begins tracking movement.','Lifts head during tummy time. Hands opening. Begins swiping at objects.','First social smiles! Cooing begins. Responds to familiar faces.','7-9 feeds/day becoming more efficient. Growth spurts at 3 and 6 weeks.'],
+    milestones:['Social smile (6-8wks). Tracks slow-moving objects. Cooing sounds begin.','Lifts head 45° during tummy time. Hands open/close. Swiping begins.','First social smiles! Coos when talked to. Prefers familiar faces.','7-9 feeds/day. Growth spurts normal.'],
+    prompt:`Noah is a YOUNG INFANT (${w} weeks). Wake windows 60-90min. 3-4 naps. Breast milk/formula ONLY. Activities: tummy time 5-10min, visual tracking, talking, singing.`};
+  if(w<26)return{id:'older-infant',label:'Active Infant',emoji:'👶',heroTitle:'Explorer Stage',ageDisplay:m,ageUnit:'months',
+    pillarNames:['🧠 Cognitive','💪 Motor','❤️ Attachment','🥣 First Foods'],
+    pillarDescs:['Object permanence beginning. Babbling with consonants. Cause & effect.','Rolls both directions. Sits with support. Reaches and grasps.','Stranger anxiety emerging. Laughs aloud! Joint attention beginning.',m>=6?'Beginning first foods alongside milk. Iron-fortified cereals or soft purees.':'Breast milk or formula only.'],
+    milestones:['Babbling with consonants. Cause-and-effect strong. Object permanence beginning.','Rolls both directions. Sits with support. Transfers objects between hands.','Laughs aloud. Stranger anxiety emerging. Loves peek-a-boo.',m>=6?'First foods: iron-fortified purees, soft mashes. Milk primary.':'Breast milk/formula every 3-4hrs.'],
+    prompt:`Noah is an ACTIVE INFANT (${m} months). Wake windows 2-3hrs. 2-3 naps. ${m>=6?'Beginning solids: iron-fortified purees, soft mashes alongside milk.':'Breast milk/formula ONLY.'} Activities: rolling, reaching, sitting practice, object play.`};
+  if(m<12)return{id:'crawler',label:'Active Baby',emoji:'🧒',heroTitle:'Discovery Stage',ageDisplay:m,ageUnit:'months',
+    pillarNames:['🧠 Language','💪 Big Motor','❤️ Social','🥄 Solid Foods'],
+    pillarDescs:['Proto-words forming. Points and gestures. Understands simple words.','Crawling, pulling to stand, cruising furniture. Pincer grasp developing.','Strong separation anxiety. Joint attention. Waves bye-bye.','Variety of textures. 3 meals + snacks alongside milk.'],
+    milestones:['Proto-words (mama/dada). Points to show interest. Understands 10-20 words.','Crawling confidently. Pulling to stand. Pincer grasp developing.','Peak separation anxiety. Waves, claps, plays pat-a-cake.','Soft finger foods, mashes. 3 meals + 2 snacks. 400-600ml milk/day.'],
+    prompt:`Noah is an ACTIVE BABY (${m} months). Wake windows 3-4hrs. 2 naps. 3 meals + 2 snacks. Soft finger foods, mashes, adapted family foods. 400-600ml breast milk/formula. Activities: crawling, pulling to stand, pincer play, language games.`};
+  if(m<18)return{id:'young-toddler',label:'Young Toddler',emoji:'🧒',heroTitle:'First Steps & First Words',ageDisplay:m,ageUnit:'months',
+    pillarNames:['🧠 Language Explosion','🏃 Walking & Climbing','❤️ Big Feelings','🥦 Toddler Meals'],
+    pillarDescs:['Vocabulary building toward 50 words. Points to share. Follows 2-step instructions.','Walking independently. Climbing low furniture. Stacking 2-4 blocks. Self-feeding.','Separation anxiety at peak. Tantrums normal. Parallel play begins.','3 meals + 2 snacks. 350-500ml full-fat cows milk. Iron & zinc critical.'],
+    milestones:[`Understands 50+ words, says ${m<=14?'1-5':'5-15'} words. Points deliberately. Pretend play beginning.`,`Walks independently. ${m>=16?'Beginning to run.':'Walk still wobbly.'} Climbs low furniture. Stacks ${m<=14?'2-3':'3-6'} blocks.`,'Separation anxiety peaks. Tantrums = normal brain development. Shows affection.','3 meals + 2 snacks. 350-500ml full-fat cows milk. Iron-rich foods daily.'],
+    prompt:`Noah is a YOUNG TODDLER (${m} months). ONE midday nap 12:30-2:30pm. Wake 6:30-7am, bed 7:30-8pm. Meals: breakfast 7am, snack 10am, lunch 12pm, snack 3pm, dinner 5:30pm. 350-500ml full-fat cows milk in a cup. NO bottle, NO added salt/sugar/honey. Halve grapes lengthwise. Activities: walking, climbing, stacking, language games, books, pretend play, dancing, outdoor.`};
+  if(m<24)return{id:'toddler',label:'Toddler',emoji:'🧒',heroTitle:'Talking & Running',ageDisplay:m,ageUnit:'months',
+    pillarNames:['🧠 Vocabulary','🏃 Coordination','❤️ Emotional World','🥗 Family Meals'],
+    pillarDescs:['50+ words, beginning 2-word phrases. Follows 2-step directions. Symbolic play rich.','Running, beginning to jump. Kicks ball. Stacks 6+ blocks. Uses spoon and fork.','Parallel play becoming cooperative. Empathy growing. Tantrums still common.','Eating most family foods. 3 meals + 2 snacks. 350-500ml cows milk.'],
+    milestones:['50+ words. Beginning 2-word combos. Follows 2-step instructions. Rich pretend play.','Running confidently. Beginning to jump. Kicks ball. Stacks 6+ blocks.','Parallel becoming cooperative play. Empathy emerging.','Eating most family foods. 3 meals + 2 snacks. 350-500ml cows milk.'],
+    prompt:`Noah is a TODDLER (${m} months). ONE midday nap 60-90min. Wake 6:30am, bed 7:30pm. Full family meals, 3 meals + 2 snacks, 350-500ml cows milk. Activities: running, jumping, ball play, complex stacking, 2-word phrases, cooperative play, art, outdoor.`};
+  if(m<36)return{id:'toddler-2',label:'2-Year-Old',emoji:'🧒',heroTitle:'Big Kid Energy',ageDisplay:m,ageUnit:'months',
+    pillarNames:['🧠 Language & Memory','🏃 Full Body Control','❤️ Social & Emotional','🍱 Independent Eating'],
+    pillarDescs:['200-300+ words, short sentences. Asks what and why. Memory for events growing.','Jumps, runs, climbs confidently. Kicks and throws. Draws lines and circles.','Cooperative play. Friendships forming. Emotional regulation improving.','Eating independently with fork and spoon. Strong food preferences forming.'],
+    milestones:['200-300+ words. Short sentences. Asks questions. Refers to self by name.','Confident jumping, running, stair-climbing. Throws and kicks a ball.','Cooperative play with friendships. Understands sharing. Emotional vocabulary growing.','Uses fork and spoon. Strong food preferences normal at this age.'],
+    prompt:`Noah is a 2-YEAR-OLD (${m} months). 1 nap 60-90min. Wake 7am, bed 7:30pm. Full family meals 3 meals + 1-2 snacks, 400ml cows milk. Activities: obstacle courses, ball games, drawing, pretend play, cooperative games, puzzles, stories, music.`};
+  const yrs=age.years;
+  return{id:'preschool',label:'Preschooler',emoji:'🧒',heroTitle:'Ready to Conquer the World',ageDisplay:yrs||m,ageUnit:yrs?'years':'months',
+    pillarNames:['🧠 Pre-Literacy & Math','🏃 Coordination & Sport','❤️ Friendships','🍽️ Healthy Habits'],
+    pillarDescs:['Letter/sound awareness, counting 10+, storytelling, memory strengthening.','Hops on one foot, catches ball, rides balance bike. Detailed drawings.','True cooperative play. Friendship preferences. Empathy developing.','Full family diet. Healthy snacks. Food independence. Kitchen helper.'],
+    milestones:['Knows name and age. Counts to 5+. Recognises some letters. Tells simple stories.','Hops on one foot. Catches bounced ball. Rides balance bike.','Cooperative play with real friendships. Understands turn-taking.','Eats full family diet. Can pour from small jug. Helps in kitchen.'],
+    prompt:`Noah is a PRESCHOOLER (${m} months). No nap (30-45min quiet rest). Wake 7am, bed 7pm. Full family diet, 3 meals + 1-2 snacks. Activities: pre-literacy, counting/sorting, art, outdoor challenges, cooperative games, role play, cooking.`};
+}
+
+// ── STATE ──
+const DAYS=['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'];
+const THEMES=['Words & Wonders','Big Mover Day','Sensory Explorer','Story & Songs','Creative Hands','Outdoor Adventure','Family Bonding'];
+const COLORS=['#c9a84c','#4a7c59','#3d7fb5','#7c6fa0','#c8614a','#5a8a9f','#7ab38a'];
+let generatedDays={};
+let activeDayIdx=null;
+let currentStage=null;
+
+// ── INIT ──
+function initPage(){
+  const age=getExactAge(),stage=getStage(age);
+  currentStage=stage;
+  document.getElementById('heroEmoji').textContent=stage.emoji;
+  document.getElementById('heroTitle').textContent=stage.heroTitle;
+  document.getElementById('ageDisplay').textContent=stage.ageDisplay;
+  document.getElementById('ageUnit').textContent=stage.ageUnit;
+  document.getElementById('ageDays').textContent=age.totalDays.toLocaleString();
+  document.getElementById('devStage').textContent=stage.label;
+  document.getElementById('pillarsTitle').textContent=`Noah's 4 Development Pillars · ${stage.label}`;
+  document.getElementById('schedEyebrow').textContent=`Weekly Schedule · ${stage.label} · ${stage.ageDisplay} ${stage.ageUnit}`;
+  for(let i=0;i<4;i++){
+    const n=i+1,parts=stage.pillarNames[i].split(' ');
+    document.getElementById(`p${n}icon`).textContent=parts[0];
+    document.getElementById(`p${n}name`).textContent=parts.slice(1).join(' ');
+    document.getElementById(`p${n}desc`).textContent=stage.pillarDescs[i];
+    document.getElementById(`p${n}ms`).textContent='📍 Now: '+stage.milestones[i];
+  }
+  buildDayPicker();
+}
+
+function buildDayPicker(){
+  const now=new Date(),dow=now.getDay(),mo=dow===0?-6:1-dow;
+  document.getElementById('dayPicker').innerHTML=DAYS.map((name,i)=>{
+    const d=new Date(now);d.setDate(now.getDate()+mo+i);
+    return`<button class="dp-btn" id="dp${i}" onclick="handleDayClick(${i})">
+      <span class="dp-spinner"></span><span class="dp-check">✓</span>
+      <span class="dp-day">${name.slice(0,3)}</span>
+      <span class="dp-date">${d.getDate()}/${d.getMonth()+1}</span>
+    </button>`;
+  }).join('');
+}
+
+// ── GENERATE ──
+async function handleDayClick(idx){
+  if(generatedDays[idx]){setActiveDay(idx);showDay(idx);return;}
+  await generateDay(idx);
+}
+
+async function generateDay(idx){
+  const age=getExactAge(),stage=getStage(age);
+  currentStage=stage;
+  const btn=document.getElementById(`dp${idx}`);
+  btn.classList.add('loading-day');btn.disabled=true;
+  setActiveDay(idx);
+  document.getElementById('outputWrap').style.display='block';
+  document.getElementById('outputWrap').classList.add('show');
+  showSkeleton();
+
+  const sys=`Pediatric specialist. Noah, male, ${age.totalMonths} months ${age.days} days. Stage: ${stage.label}. ${stage.prompt.slice(0,350)} Return ONLY a raw JSON array. No markdown. No text outside array. No newlines inside strings. Block shape: {"time":"7:00 AM","category":"feed|sleep|brain|motor|social|play","title":"string","duration":"X min","description":"3 practical sentences: what to do, exact technique, developmental benefit.","science":"1 research-backed sentence.","recipe":"full meal details if feed block else empty string","setup":"exact physical setup if activity block else empty string"}`;
+
+  try{
+    async function half(instruction){
+      const r=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',
+        headers:{'Content-Type':'application/json','anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'},
+        body:JSON.stringify({model:'claude-haiku-4-5-20251001',max_tokens:2000,system:sys,messages:[{role:'user',content:instruction}]})});
+      if(!r.ok) throw new Error(`HTTP ${r.status}`);
+      const d=await r.json();
+      return JSON.parse(repairJSON(d.content.map(i=>i.text||'').join('').replace(/```json|```/g,'').trim()));
+    }
+    const am=await half(`${DAYS[idx]} MORNING, theme "${THEMES[idx]}", Noah ${age.totalMonths}m. 5 blocks: wake through lunch (7am-12pm). JSON array of 5.`);
+    const pm=await half(`${DAYS[idx]} AFTERNOON/EVENING, theme "${THEMES[idx]}", Noah ${age.totalMonths}m. 5 blocks: nap through bedtime (12:30pm-8pm). JSON array of 5.`);
+    generatedDays[idx]={name:DAYS[idx],theme:THEMES[idx],themeColor:COLORS[idx],blocks:[...am,...pm]};
+    btn.classList.remove('loading-day');btn.classList.add('generated');btn.disabled=false;
+    showDay(idx);updateExportButtons();
+  }catch(e){
+    console.error(e);
+    btn.classList.remove('loading-day');btn.disabled=false;
+    document.getElementById('outputWrap').style.display='none';
+    activeDayIdx=null;updateDayPicker();
+    showToast('Could not generate '+DAYS[idx]+'. Please try again. ('+e.message+')','#c8614a');
+  }
+}
+
+async function generateAll(){
+  const btn=document.getElementById('genAllBtn');
+  btn.disabled=true;btn.classList.add('loading');
+  for(let i=0;i<7;i++) if(!generatedDays[i]) await generateDay(i);
+  btn.disabled=false;btn.classList.remove('loading');
+  showToast('🎉 Full week generated!','#4a7c59');
+}
+
+function setActiveDay(idx){activeDayIdx=idx;updateDayPicker();}
+function updateDayPicker(){DAYS.forEach((_,i)=>{const b=document.getElementById(`dp${i}`);if(b)b.classList.toggle('active',i===activeDayIdx);});}
+
+function showSkeleton(){
+  document.getElementById('dayContent').innerHTML=`
+    <div class="day-header"><div style="width:12px;height:12px;border-radius:50%;background:#ddd;flex-shrink:0"></div>
+    <div><div class="skel" style="width:180px;height:18px;margin-bottom:6px"></div><div class="skel" style="width:120px;height:12px"></div></div></div>
+    ${[...Array(5)].map(()=>`<div class="skeleton-block"><div class="skel" style="width:100px;height:10px;margin-bottom:8px"></div><div class="skel" style="width:60%;height:16px;margin-bottom:10px"></div><div class="skel" style="width:100%;height:11px;margin-bottom:5px"></div><div class="skel" style="width:85%;height:11px"></div></div>`).join('')}`;
+}
+
+function showDay(idx){
+  const day=generatedDays[idx];if(!day)return;
+  const age=getExactAge();
+  const cats={feed:'🍽️ Meal / Feeding',sleep:'😴 Sleep / Nap',brain:'🧠 Cognitive & Language',motor:'🏃 Movement & Motor',social:'❤️ Social & Emotional',play:'🎨 Play & Explore'};
+  document.getElementById('dayContent').innerHTML=`
+    <div class="day-header">
+      <div style="width:12px;height:12px;border-radius:50%;background:${day.themeColor};flex-shrink:0"></div>
+      <div><div class="day-focus-name">${day.name} — ${day.theme}</div>
+      <div class="day-focus-sub">Noah · ${age.totalMonths} months ${age.days} days · ${currentStage?currentStage.label:''}</div></div>
+    </div>
+    <div class="timeline">
+    ${day.blocks.map((b,i,arr)=>`
+      <div class="tl-row cat-${b.category}">
+        <div class="tl-time">${b.time}</div>
+        <div class="tl-spine"><div class="tl-dot"></div>${i<arr.length-1?'<div class="tl-line"></div>':''}</div>
+        <div class="tl-card">
+          <div class="tl-cat">${cats[b.category]||b.category}<span style="color:#ccc"> · </span><span style="color:#aaa">${b.duration||''}</span></div>
+          <div class="tl-title">${b.title}</div>
+          <div class="tl-desc">${b.description}</div>
+          ${b.science?`<div class="tl-extra tl-why"><strong>🔬 The Science</strong>${b.science}</div>`:''}
+          ${b.recipe?`<div class="tl-extra tl-recipe"><strong>🍽️ Meal Guide</strong>${b.recipe}</div>`:''}
+          ${b.setup?`<div class="tl-extra tl-setup"><strong>⚙️ Setup & How-To</strong>${b.setup}</div>`:''}
+        </div>
+      </div>`).join('')}
+    </div>`;
+}
+
+function updateExportButtons(){
+  const has=Object.keys(generatedDays).length>0;
+  document.getElementById('pdfBtn').disabled=!has;
+  document.getElementById('mailBtn').disabled=!has;
+}
+
+// ── JSON REPAIR ──
+function repairJSON(str){
+  try{JSON.parse(str);return str;}catch(e){}
+  const lb=str.lastIndexOf('}');
+  if(lb===-1)throw new Error('No valid JSON');
+  let r=str.slice(0,lb+1);
+  if(!r.trimEnd().endsWith(']'))r+=']';
+  try{JSON.parse(r);return r;}catch(e){}
+  const sl=r.lastIndexOf('}',r.length-2);
+  if(sl===-1)throw new Error('Cannot repair JSON');
+  r=r.slice(0,sl+1)+']';
+  try{JSON.parse(r);return r;}catch(e){throw new Error('JSON repair failed');}
+}
+
+// ── PLAIN TEXT (for mobile share) ──
+function buildPlainText(days){
+  const age=getExactAge();
+  let t=`NOAH'S SCHEDULE · ${age.totalMonths} months ${age.days} days\n${'─'.repeat(40)}\n\n`;
+  days.forEach(day=>{
+    t+=`${'═'.repeat(40)}\n${day.name.toUpperCase()} — ${day.theme}\n${'═'.repeat(40)}\n\n`;
+    day.blocks.forEach(b=>{
+      t+=`${b.time} · ${b.title} (${b.duration})\n${b.description}\n`;
+      if(b.science) t+=`Science: ${b.science}\n`;
+      if(b.recipe)  t+=`Meal: ${b.recipe}\n`;
+      if(b.setup)   t+=`Setup: ${b.setup}\n`;
+      t+='\n';
+    });
+  });
+  return t+`InchAllah, Harvard awaits! 🎓`;
+}
+
+// ── BUILD PRINT HTML ──
+function buildPrintHTML(days){
+  const age=getExactAge();
+  const cats={feed:'🍽️ Meal',sleep:'😴 Sleep',brain:'🧠 Cognitive',motor:'🏃 Motor',social:'❤️ Social',play:'🎨 Play'};
+  return`<div style="font-family:Georgia,serif;padding:24px;max-width:800px;margin:0 auto">
+    <div style="background:#0d1117;color:#fff;border-radius:16px;padding:28px;margin-bottom:28px">
+      <div style="font-size:11px;font-family:monospace;letter-spacing:3px;color:#d4a847;text-transform:uppercase;margin-bottom:8px">Noah's Schedule · Auto-Generated</div>
+      <div style="font-size:24px;font-weight:300;margin-bottom:4px">${days.length===1?days[0].name+' Schedule':'Full Week Schedule'} — Noah</div>
+      <div style="font-size:13px;color:rgba(255,255,255,.5)">${age.totalMonths} months ${age.days} days · ${currentStage?currentStage.label:''} · ${new Date().toDateString()}</div>
+    </div>
+    ${days.map(day=>`
+    <div class="print-day" style="margin-bottom:40px">
+      <div style="background:${day.themeColor};color:#fff;border-radius:12px;padding:14px 20px;margin-bottom:16px">
+        <div style="font-size:18px;font-weight:600">${day.name} — ${day.theme}</div>
+      </div>
+      ${day.blocks.map(b=>`
+      <div style="background:#fff;border:1px solid #e8e4de;border-radius:12px;padding:16px;margin-bottom:10px">
+        <div style="font-size:10px;font-family:monospace;text-transform:uppercase;color:#888;margin-bottom:4px">${cats[b.category]||b.category} · ${b.time} · ${b.duration}</div>
+        <div style="font-size:16px;font-weight:600;color:#0d1117;margin-bottom:6px">${b.title}</div>
+        <div style="font-size:13px;color:#444;line-height:1.6;margin-bottom:8px">${b.description}</div>
+        ${b.science?`<div style="background:#f0f4ff;border-left:3px solid #3d7fb5;border-radius:8px;padding:10px 12px;font-size:12px;margin-bottom:6px"><strong style="display:block;font-size:10px;font-family:monospace;color:#3d7fb5;margin-bottom:3px">🔬 THE SCIENCE</strong>${b.science}</div>`:''}
+        ${b.recipe?`<div style="background:#fff5f0;border-left:3px solid #c8614a;border-radius:8px;padding:10px 12px;font-size:12px;margin-bottom:6px"><strong style="display:block;font-size:10px;font-family:monospace;color:#c8614a;margin-bottom:3px">🍽️ MEAL GUIDE</strong>${b.recipe}</div>`:''}
+        ${b.setup?`<div style="background:#eef5f0;border-left:3px solid #4a7c59;border-radius:8px;padding:10px 12px;font-size:12px"><strong style="display:block;font-size:10px;font-family:monospace;color:#4a7c59;margin-bottom:3px">⚙️ SETUP</strong>${b.setup}</div>`:''}
+      </div>`).join('')}
+    </div>`).join('')}
+    <div style="text-align:center;padding:20px;font-size:11px;color:#aaa;font-family:monospace;border-top:1px solid #e8e4de;margin-top:24px">
+      Sources: WHO · AAP · Harvard Medical School · NIH · CDC Milestones · Zero to Three
+    </div>
+  </div>`;
+}
+
+// ── PDF ──
+function downloadPDF(){
+  const keys=Object.keys(generatedDays).map(Number).sort();
+  if(!keys.length){showToast('Please generate at least one day first.','#c8614a');return;}
+  const days=activeDayIdx!==null&&generatedDays[activeDayIdx]
+    ?[generatedDays[activeDayIdx]]
+    :keys.map(k=>generatedDays[k]);
+
+  // Remove existing overlay
+  const old=document.getElementById('pdfOverlay');if(old)old.remove();
+
+  const inner=buildPrintHTML(days);
+  const overlay=document.createElement('div');
+  overlay.id='pdfOverlay';
+  overlay.style.cssText='position:fixed;inset:0;z-index:99999;background:#f8f6f2;overflow-y:auto;-webkit-overflow-scrolling:touch;';
+
+  overlay.innerHTML=`
+    <div style="position:sticky;top:0;z-index:2;background:#0d1117;padding:12px 16px;display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap">
+      <div style="color:#fff;font-family:sans-serif;font-size:13px;font-weight:500">📄 ${days.length===1?days[0].name:' Full Week'} — Noah</div>
+      <div style="display:flex;gap:8px">
+        <button id="sharePdfBtn" style="background:#d4a847;color:#000;border:none;border-radius:8px;padding:9px 16px;font-size:13px;font-weight:600;cursor:pointer;font-family:sans-serif">🖨️ Print / Share</button>
+        <button onclick="document.getElementById('pdfOverlay').remove()" style="background:rgba(255,255,255,.15);color:#fff;border:none;border-radius:8px;padding:9px 14px;font-size:13px;cursor:pointer;font-family:sans-serif">✕</button>
+      </div>
+    </div>
+    <div id="pdfInner" style="padding:16px;max-width:800px;margin:0 auto">${inner}</div>`;
+
+  document.body.appendChild(overlay);
+
+  document.getElementById('sharePdfBtn').onclick = async () => {
+    // Try Web Share API first (works great on mobile)
+    const text = buildPlainText(days);
+    if(navigator.share){
+      try{
+        await navigator.share({
+          title:`Noah's Schedule · ${getExactAge().totalMonths} months`,
+          text: text
+        });
+        return;
+      }catch(e){ /* user cancelled or not supported, fall through */ }
+    }
+    // Try print (works on desktop + some mobile browsers)
+    window.print();
+  };
+}
+
+// ── EMAIL BODY ──
+function buildEmailBody(days){
+  const age=getExactAge();
+  let b=`NOAH'S SCHEDULE\nAge: ${age.totalMonths} months ${age.days} days · Stage: ${currentStage?currentStage.label:''}\nGenerated: ${new Date().toDateString()}\n${'─'.repeat(50)}\n\n`;
+  days.forEach(day=>{
+    b+=`${'═'.repeat(50)}\n${day.name.toUpperCase()} — ${day.theme}\n${'═'.repeat(50)}\n\n`;
+    day.blocks.forEach(bl=>{
+      b+=`${bl.time} · ${bl.title} (${bl.duration})\n${bl.description}\n`;
+      if(bl.science)b+=`Science: ${bl.science}\n`;
+      if(bl.recipe)b+=`Meal: ${bl.recipe}\n`;
+      if(bl.setup)b+=`Setup: ${bl.setup}\n`;
+      b+='\n';
+    });
+  });
+  return b+`\nInchAllah, Harvard awaits! 🎓`;
+}
+
+// ── SEND EMAIL ──
+async function sendEmail(){
+  const keys=Object.keys(generatedDays).map(Number).sort();
+  if(!keys.length){showToast('Please generate at least one day first.','#c8614a');return;}
+  const emailEl=document.getElementById('subEmail');
+  const email=emailEl?emailEl.value.trim():'';
+  if(!email||!email.includes('@')){
+    showToast('Please enter your email in the subscription box below first.','#c8614a');
+    if(emailEl){emailEl.scrollIntoView({behavior:'smooth',block:'center'});emailEl.style.borderColor='var(--coral)';setTimeout(()=>emailEl.style.borderColor='',2000);}
+    return;
+  }
+  const days=activeDayIdx!==null&&generatedDays[activeDayIdx]?[generatedDays[activeDayIdx]]:keys.map(k=>generatedDays[k]);
+  const age=getExactAge();
+  const dayLabel=days.length===1?days[0].name:'Full Week';
+  const mailBtn=document.getElementById('mailBtn');
+  mailBtn.disabled=true;mailBtn.textContent='📧 Sending...';
+  try{
+    // Test connectivity first
+    const testRes = await fetch(VERCEL_API, { method: 'OPTIONS' }).catch(e => null);
+    if(!testRes) throw new Error('Cannot reach Vercel function — check deployment and CORS headers');
+
+    const res = await fetch(VERCEL_API, {
+      method: 'POST',
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({
+        to_email: email,
+        subject: `Noah's ${dayLabel} Schedule · ${age.totalMonths} months · ${new Date().toDateString()}`,
+        week_title: `Noah's ${dayLabel} Schedule`,
+        age: `${age.totalMonths} months ${age.days} days`,
+        stage: currentStage?currentStage.label:'',
+        schedule_body: buildEmailBody(days).slice(0,4000),
+        generated_date: new Date().toDateString()
+      })
+    });
+    const data = await res.json();
+    if(res.ok && data.ok){
+      showToast(`✅ Schedule sent to ${email}!`,'#4a7c59');
+    } else {
+      throw new Error(data.message||`HTTP ${res.status}`);
+    }
+  }catch(e){
+    console.error('Email error:',e);
+    showToast('Send failed: '+e.message,'#c8614a');
+  }finally{
+    mailBtn.disabled=false;mailBtn.textContent='📧 Email Schedule';
+  }
+}
+
+// ── SUBSCRIBE ──
+function subscribe(){
+  const emailEl=document.getElementById('subEmail');
+  const e=emailEl?emailEl.value.trim():'';
+  if(!e||!e.includes('@')){
+    if(emailEl){emailEl.style.borderColor='var(--coral)';emailEl.focus();setTimeout(()=>emailEl.style.borderColor='',2000);}
+    return;
+  }
+  const ct=document.getElementById('ct-email');
+  document.getElementById('ct-email-msg').textContent=`Noah's schedule arrives at ${e} every Monday, auto-updated as he grows. InchAllah, Harvard awaits! 🎓`;
+  ct.classList.add('show');
+  ct.scrollIntoView({behavior:'smooth',block:'nearest'});
+}
+
+// ── TOAST ──
+function showToast(msg,color){
+  const t=document.getElementById('toastBar');
+  t.textContent=msg;t.style.borderColor=color||'var(--sage)';t.style.display='block';
+  clearTimeout(t._t);t._t=setTimeout(()=>t.style.display='none',5000);
+}
+
+initPage();
+</script>
+</body>
+</html>
